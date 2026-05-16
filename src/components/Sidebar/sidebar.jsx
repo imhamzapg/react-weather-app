@@ -1,6 +1,7 @@
 import { use, useState } from "react"
-
-const Sidebar = ({ setCity, weather }) => {
+import "./sidebar.css"
+import searchIcon from "../../assets/icons/search.png"
+const Sidebar = ({ cityImage, setCity, weather }) => {
     const [term, setTerm] = useState("")
 
     const today = new Date()
@@ -14,8 +15,14 @@ const Sidebar = ({ setCity, weather }) => {
 
     return (
         <div className="sidebar">
-            <form onSubmit={handleSubmit} action="">
-                <input onChange={(e) => { setTerm(e.target.value) }} value={term} type="text" />
+            <form onSubmit={handleSubmit} className="search-form">
+                <img src={searchIcon} alt="search" className="search-icon" />
+                <input
+                    onChange={(e) => { setTerm(e.target.value) }}
+                    value={term}
+                    type="text"
+                    placeholder="Search for places..."
+                />
             </form>
             <div className="sidebar-weather">
                 <img
@@ -25,7 +32,7 @@ const Sidebar = ({ setCity, weather }) => {
                 />
                 <h1 className="temp-large">{Math.round(weather.main.temp)}°C</h1>
                 <div className="day-time">
-                    <h2 className='day'>{dayName}</h2>
+                    <h2 className='day'>{dayName} ,</h2>
                     <p className='time'>{today.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
                 <hr />
@@ -47,12 +54,13 @@ const Sidebar = ({ setCity, weather }) => {
                         />
                         <p>Rain - {weather.main.humidity}%</p>
                     </div>
-                    <div className="city-card">
+                  
+                </div>
+                  <div style={{ backgroundImage: `url(${cityImage || '/city-bg.jpg'})` }} className="city-card" >
                         <div className="city-overlay">
                             <p className="city-text">{weather.name}, {weather.sys.country}</p>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     )

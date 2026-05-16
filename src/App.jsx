@@ -7,9 +7,27 @@ const App = () => {
   const [city, setCity] = useState("Novi Pazar")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [cityImage, setCityImage] = useState("")
 
   const API_KEY = "783df983330ec9a2aef131fb4857f95c"
   const baseURL = "https://api.openweathermap.org/data/2.5/weather";
+
+  const fetchCityImage = async (cityName) => {
+    const accessKey = "TxXIp-gUT-fdU3_wbebgVwETzGGTsbyqcEGyfl7oNsI"
+    const url = `https://api.unsplash.com/search/photos?page=1&query=${cityName}&client_id=${accessKey}`;
+    try {
+      const responnse = await fetch(url)
+      const data = await responnse.json()
+      if (data.results && data.results.length > 0) {
+        setCityImage(data.results[0].urls.regular)
+      } else {
+        setCityImage("/city-bg.jpg")
+      }
+    } catch (error) {
+      console.error("Error fetching city image:", error)
+      setCityImage("/city-bg.jpg")
+    }
+  }
 
   const fetchData = async () => {
     setLoading(true);
@@ -31,6 +49,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData(); 
+    fetchCityImage(city)
   }, [city]);
 
   return (
@@ -41,7 +60,7 @@ const App = () => {
 
       {weather && !loading && (
         <div className="dashboard-layout"> 
-          <Sidebar setCity={setCity} weather={weather} /> 
+          <Sidebar cityImage={cityImage} setCity={setCity} weather={weather} /> 
         </div>
       )}
     </div>
