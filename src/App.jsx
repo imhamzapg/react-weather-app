@@ -1,8 +1,8 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import Sidebar from './components/sidebar'
+import Sidebar from './components/Sidebar/sidebar'
 
-function App() {
+const App = () => {
   const [weather, setWeather] = useState(null)
   const [city, setCity] = useState("Novi Pazar")
   const [loading, setLoading] = useState(true)
@@ -42,11 +42,6 @@ function App() {
       {weather && !loading && (
         <div className="dashboard-layout"> 
           <Sidebar setCity={setCity} weather={weather} /> 
-
-          <main className="main-content">
-             <h2>Today's Highlights for {weather.name}</h2>
-             <div className="temp-large">{Math.round(weather.main.temp)}°C</div>
-          </main>
         </div>
       )}
     </div>
