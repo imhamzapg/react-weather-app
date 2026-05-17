@@ -44,13 +44,15 @@
   margin-top: 40px;
   flex-grow: 1;
 }
+
 .main-weather-icon {
   width: 180px;
-  height: 180px;
+  height: 18    0px;
   object-fit: contain;
   align-self: flex-start;
   margin-left: -10px;
 }
+
 .temp-large {
   font-size: 5.5rem;
   font-weight: 300;
