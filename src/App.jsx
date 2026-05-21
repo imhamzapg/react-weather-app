@@ -1,6 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar/sidebar'
+import MainContent from './components/MainContent/MainContent'
 
 const App = () => {
   const [weather, setWeather] = useState(null)
@@ -61,6 +62,7 @@ const App = () => {
       {weather && !loading && (
         <div className="dashboard-layout"> 
           <Sidebar cityImage={cityImage} setCity={setCity} weather={weather} /> 
+          <MainContent weather={weather} />
         </div>
       )}
     </div>
