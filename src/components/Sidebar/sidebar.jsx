@@ -1,7 +1,7 @@
 import { use, useState } from "react"
 import "./sidebar.css"
 import searchIcon from "../../assets/icons/search.png"
-const Sidebar = ({ cityImage, setCity, weather }) => {
+const Sidebar = ({ cityImage, setCity, weather, isCelsius }) => {
     const [term, setTerm] = useState("")
 
     const today = new Date()
@@ -30,7 +30,8 @@ const Sidebar = ({ cityImage, setCity, weather }) => {
                     alt="Weather icon"
                     className="main-weather-icon"
                 />
-                <h1 className="temp-large">{Math.round(weather.main.temp)}°C</h1>
+                <h1 className="temp-large">{isCelsius ? Math.round(weather.main.temp) : Math.round((weather.main.temp * 9/5) + 32)}°
+                    {isCelsius ? 'C' : 'F'}</h1>
                 <div className="day-time">
                     <h2 className='day'>{dayName} ,</h2>
                     <p className='time'>{today.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
