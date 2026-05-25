@@ -1,14 +1,13 @@
 import { useState } from "react"
-
+import "./MainContent.css"
 const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
     const [view, setView] = useState("week");
 
-    const weekDays = ({ day }) => {
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const date = new Date(day);
-        const dayName = days[date.getDay()];
-        return dayName;
-    }
+  const weekDays = (day) => {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const date = new Date(day);
+    return days[date.getDay()];
+};
 
     return (
         <div className="main-content">
@@ -26,21 +25,23 @@ const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
                 {view === "today" ? (
                     <>
                         {forecast && forecast.list && (
-                            <div className="foreacst">
+                            <div className="forecast">
                                 {forecast.list.slice(0, 5).map((item, index) => (
-                                    <div className="item" key={index}>
-                                        <p>{item.dt_txt.split(" ")[1].split(":").slice(0, 2).join(":")}</p>
-                                        <img
-                                            src={`/weather-icons/${item.weather[0].icon}.png`}
-                                            alt={item.weather[0].description}
-                                            className="forecast-mini-icon"
-                                        />
-                                        <p>{isCelsius ? Math.round(item.main.temp) : Math.round((item.main.temp * 9 / 5) + 32)}°{isCelsius ? "C" : "F"}</p>
-                                    </div>
+                                
+                                        <div className="item" key={index}>
+                                            <p>{item.dt_txt.split(" ")[1].split(":").slice(0, 2).join(":")}</p>
+                                            <img
+                                                src={`/weather-icons/${item.weather[0].icon}.png`}
+                                                alt={item.weather[0].description}
+                                                className="forecast-mini-icon"
+                                            />
+                                            <p>{isCelsius ? Math.round(item.main.temp) : Math.round((item.main.temp * 9 / 5) + 32)}°{isCelsius ? "C" : "F"}</p>
+                                        </div>
+
                                 ))}
                             </div>
                         )}
-                        {/* <p>{weekDays({ day: item.dt_txt.split(" ")[0] })}</p> */}
+
 
                     </>
                 ) : view === "week" ? (
