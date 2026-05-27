@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./MainContent.css"
+import MainInfo from "./MainInfo/MainInfo";
 const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
     const [view, setView] = useState("week");
 
@@ -11,7 +12,7 @@ const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
 
     return (
         <div className="main-content">
-           <div className="top-bar">
+            <div className="top-bar">
                 <div className="view-bars">
                     <button
                         className={view === "today" ? "active" : ""}
@@ -26,11 +27,11 @@ const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
                     >
                         Week
                     </button>
-                   
+
                 </div>
-                 <div className="units">
-                        <button onClick={() => { toggleUnits(true) }} className={isCelsius ? "active" : ""}>°C</button>
-                        <button onClick={() => { toggleUnits(false) }} className={!isCelsius ? "active" : ""}>°F</button>
+                <div className="units">
+                    <button onClick={() => { toggleUnits(true) }} className={isCelsius ? "active" : ""}>°C</button>
+                    <button onClick={() => { toggleUnits(false) }} className={!isCelsius ? "active" : ""}>°F</button>
                 </div>
             </div>
 
@@ -57,10 +58,30 @@ const MainContent = ({ weather, isCelsius, toggleUnits, forecast }) => {
                     </>
                 ) : view === "week" ? (
                     <>
-                        <h1>h1</h1>
+                        {forecast && forecast.list && (
+                            <div className="forecast">
+                                {forecast.list.filter(item =>
+                                    item.dt_txt.includes("12:00:00"))
+                                    .map((item, index) => {
+                                        return (
+                                            <div key={index} className="item">
+                                                <p>{weekDays(item.dt_txt.split(" ")[0])}</p>
+                                                <img src={`/weather-icons/${item.weather[0].icon}.png`} alt=""
+                                                className="forecast-mini-icon"
+                                                />
+                                                <div className="max-min-temp">
+                                                    <p>{isCelsius ? Math.round(item.main.temp_max) : Math.round(item.main.temp_max * 9 / 5) + 32   }°{isCelsius ? "C" : "F"}</p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )}
                     </>
                 ) : null}
             </div>
+            <MainInfo weather={weather}/>
         </div>
     )
 }
