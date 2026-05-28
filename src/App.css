@@ -9,3 +9,9 @@
     padding: 40px;
     box-sizing: border-box;
 }
+
+@media (max-width: 600px) {
+    .dashboard-layout{
+        flex-direction: column;
+    }
+}
