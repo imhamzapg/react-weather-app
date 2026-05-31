@@ -1,96 +1,125 @@
-.FL {
-    background: linear-gradient(135deg, rgba(226, 153, 35, 0.8), rgba(133, 133, 133, 0.8));
-    border-radius: 15px;
-    padding: 15px;
-    width: 240px;
-    color: white;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+}
+.insights-card{
+background-color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  width: 240px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
 
 .Fl-icon {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .feels-like-icon {
-    font-size: 18px !important;
-    opacity: 0.7;
+  font-size: 22px !important;
+  opacity: 0.7;
 }
 
 .Fl-icon h2 {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    opacity: 0.7;
-    margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+  margin: 0;
 }
 
 .feels-like-temp {
-    font-size: 38px;
-    font-weight: 400;
-    margin: 10px 0 0 0;
+  font-size: 38px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
 }
 
 .actual-temp {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 0 0 10px 0;
-    opacity: 0.9;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+  opacity: 0.9;
 }
 
 .fl-slider-container {
-    position: relative;
-    width: 100%;
-    height: 30px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .fl-track {
-    position: absolute;
-    width: 100%;
-    height: 6px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(120, 120, 120, 0.2);
+  border-radius: 3px;
 }
 
 .fl-badge {
-    position: absolute;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, #faca7e 0%, #ffdd80 100%);
-    color: #292929;
-    font-size: 0.9rem;
-    font-weight: bold;
-    padding: 4px 10px;
-    border-radius: 12px;
-    transition: left 0.5s ease-in-out; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #7ebafa 0%, #8088ff 100%);
+  color: #292929;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 12px;
+  transition: left 0.5s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .fl-message {
-    font-size: 12px;
-    line-height: 1.4;
-    margin: 0;
-    opacity: 0.8;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.8;
+}
+.wind-compas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wind-compas span {
+  transition: transform 2.5s ease;
+  font-weight: 1000;
+  color: #3556eb;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 24px;
+  background-color: #e3e3e3; 
+  border: 1px solid #3556eb;
 }
 
 @media (max-width: 500px) {
-    .FL {
-        width: 80%;
-        padding: 12px;
-    }
+  .FL {
+    width: 80%;
+    padding: 12px;
+  }
 
-    .insights-container{
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .insights-grid{
-        grid-template-columns: 1fr;
-        gap: 20px;
-        justify-items: center;
-    }
+  .insights-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .insights-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0px 10px;
+  }
+  
 }
