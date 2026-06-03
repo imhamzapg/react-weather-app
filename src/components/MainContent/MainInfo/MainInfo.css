@@ -105,6 +105,22 @@ background-color: #ffffff;
   border: 1px solid #3556eb;
 }
 
+.mini-sun-data-cont{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.mini-sun-data-cont span{
+  font-weight: 900;
+  background-color: rgb(250, 211, 38);
+  padding: 5px;
+  border-radius: 50%;
+  border: 3px solid rgb(187, 158, 28) ;
+  color: white;
+}
+
 @media (max-width: 500px) {
   .FL {
     width: 80%;
