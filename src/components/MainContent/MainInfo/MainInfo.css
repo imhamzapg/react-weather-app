@@ -120,7 +120,29 @@ background-color: #ffffff;
   border: 3px solid rgb(187, 158, 28) ;
   color: white;
 }
+.humidity-continer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+  border: 3px solid rgba(64, 64, 64, 0.2);
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
 @media (max-width: 500px) {
   .FL {
     width: 80%;

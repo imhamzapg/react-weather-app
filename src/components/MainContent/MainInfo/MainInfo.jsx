@@ -26,6 +26,12 @@ const MainInfo = ({ weather }) => {
         return "N/A";
     };
 
+    const getHumidity = (hum) => {
+        if (hum <= 30) return "Low"
+        if (hum <= 60) return "Normal"
+        return "High"
+    }
+
     const sunriseTargetTime = weather?.sys ? new Date((weather.sys.sunrise + weather.timezone) * 1000) : null;
     const sunsetTargetTime = weather?.sys ? new Date((weather.sys.sunset + weather.timezone) * 1000) : null;
 
@@ -99,6 +105,30 @@ const MainInfo = ({ weather }) => {
                             <div className="mini-sun-data-cont">
                                 <span className="material-symbols-outlined feels-like-icon">arrow_downward</span>
                                 <h1>{sunsetTime}</h1>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {(weather?.main?.humidity !== undefined) && (
+                    <div className="insights-card">
+                        <div className="Fl-icon">
+                            <span className="material-symbols-outlined feels-like-icon">water_drop</span>
+                            <h2>Humidity</h2>
+                        </div>
+                        <div className="humidity-continer">
+                            <div className="wrapper">
+                                <h1 style={{ fontSize: "3rem" }} className="feels-like-temp">{weather.main.humidity}%</h1>
+                                <p style={{ fontSize: "1.2rem" }}>{getHumidity(weather.main.humidity)}</p>
+                            </div>
+                            <div className="scale">
+                                <div
+                                    style={{
+                                        transform: weather.main.humidity <= 30 ? "translateY(0)" : weather.main.humidity <= 60 ? "translateY(50%)" : "translateY(100%)",
+                                        backgroundColor: weather.main.humidity <= 30 ? "#4caf50" : weather.main.humidity <= 60 ? "#2196f3" : "#f44336"
+                                    }}
+                                    className="circle"
+                                ></div>
                             </div>
                         </div>
                     </div>
