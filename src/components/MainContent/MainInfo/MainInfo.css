@@ -129,9 +129,9 @@ background-color: #ffffff;
 .scale {
   display: flex;
   flex-direction: column;
-  justify-content: end;
   align-items: center;
   height: 100%;
+  /* justify-content: center; */
   border: 3px solid rgba(64, 64, 64, 0.2);
   padding: 5px;
   border-radius: 20px;

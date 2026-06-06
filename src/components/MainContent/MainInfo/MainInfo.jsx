@@ -121,10 +121,14 @@ const MainInfo = ({ weather }) => {
                                 <h1 style={{ fontSize: "3rem" }} className="feels-like-temp">{weather.main.humidity}%</h1>
                                 <p style={{ fontSize: "1.2rem" }}>{getHumidity(weather.main.humidity)}</p>
                             </div>
-                            <div className="scale">
+                            <div
+                                style={{
+                                    justifyContent: weather.main.humidity <= 30 ? "flex-end" : weather.main.humidity <= 60 ? "center" : "flex-start",
+                                }}
+                                className="scale"
+                            >
                                 <div
                                     style={{
-                                        transform: weather.main.humidity <= 30 ? "translateY(0)" : weather.main.humidity <= 60 ? "translateY(50%)" : "translateY(100%)",
                                         backgroundColor: weather.main.humidity <= 30 ? "#4caf50" : weather.main.humidity <= 60 ? "#2196f3" : "#f44336"
                                     }}
                                     className="circle"
