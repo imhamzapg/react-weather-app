@@ -13,7 +13,7 @@ const MainInfo = ({ weather }) => {
     if (diff < 0) message = "It feels colder."
 
     const sliderPosition = Math.max(10, Math.min(90, 50 + diff * 5))
-    console.log(weather)
+
     const getWindDirection = (deg) => {
         if (deg >= 337.5 || deg < 22.5) return "N";
         if (deg >= 22.5 && deg < 67.5) return "NE";
@@ -32,6 +32,26 @@ const MainInfo = ({ weather }) => {
         return "High"
     }
 
+    const getVisibility = (vis) => {
+        if (vis <= 1000) return "Poor"
+        if (vis <= 4000) return "Fair"
+        if (vis <= 10000) return "Good"
+        return "Excellent"
+    }
+
+    const getPressureStatus = (hpa) => {
+        if (hpa < 1000) return "Low Pressure"
+        if (hpa <= 1020) return "Normal"
+        return "High Pressure"
+    }
+
+    const getUvStatus = (uv) => {
+        if (uv <= 2) return "Low"
+        if (uv <= 5) return "Moderate"
+        if (uv <= 7) return "High"
+        return "Very High"
+    }
+
     const sunriseTargetTime = weather?.sys ? new Date((weather.sys.sunrise + weather.timezone) * 1000) : null;
     const sunsetTargetTime = weather?.sys ? new Date((weather.sys.sunset + weather.timezone) * 1000) : null;
 
@@ -42,31 +62,30 @@ const MainInfo = ({ weather }) => {
         <div className="insights-container">
             <h1>Today's Highlights</h1>
             <div className="insights-grid">
+
+                {/* 1. FEELS LIKE CARD */}
                 {weather?.main && (
-                    <>
-                        <div className="insights-card FL">
-                            <div className="Fl-icon">
-                                <span className="material-symbols-outlined feels-like-icon">thermostat</span>
-                                <h2>FEELS LIKE</h2>
-                            </div>
-
-                            <h1 className="feels-like-temp">{feelsLike}°</h1>
-                            <h3 className="actual-temp">Actual: {actualTemp}°</h3>
-
-                            <div className="fl-slider-container">
-                                <div className="fl-track"></div>
-                                <div
-                                    className="fl-badge"
-                                    style={{ left: `${sliderPosition}%` }}
-                                >
-                                    {diffText}
-                                </div>
-                            </div>
-
-                            <p className="fl-message">{message}</p>
+                    <div className="insights-card FL">
+                        <div className="Fl-icon">
+                            <span className="material-symbols-outlined feels-like-icon">thermostat</span>
+                            <h2>FEELS LIKE</h2>
                         </div>
-                    </>
+                        <h1 className="feels-like-temp">{feelsLike}°</h1>
+                        <h3 className="actual-temp">Actual: {actualTemp}°</h3>
+                        <div className="fl-slider-container">
+                            <div className="fl-track"></div>
+                            <div
+                                className="fl-badge"
+                                style={{ left: `${sliderPosition}%` }}
+                            >
+                                {diffText}
+                            </div>
+                        </div>
+                        <p className="fl-message">{message}</p>
+                    </div>
                 )}
+
+                {/* 2. WIND SPEED CARD */}
                 {weather?.wind && (
                     <div className="insights-card WS">
                         <div className="Fl-icon">
@@ -86,11 +105,11 @@ const MainInfo = ({ weather }) => {
                             <h3 style={{ fontSize: "1.2rem", fontWeight: "500" }}>
                                 Direction: {getWindDirection(weather.wind.deg)}
                             </h3>
-
                         </div>
                     </div>
                 )}
 
+                {/* 3. SUNRISE & SUNSET CARD */}
                 {weather?.sys && (
                     <div className="insights-card">
                         <div className="Fl-icon">
@@ -110,6 +129,7 @@ const MainInfo = ({ weather }) => {
                     </div>
                 )}
 
+                {/* 4. HUMIDITY CARD */}
                 {(weather?.main?.humidity !== undefined) && (
                     <div className="insights-card">
                         <div className="Fl-icon">
@@ -137,9 +157,66 @@ const MainInfo = ({ weather }) => {
                         </div>
                     </div>
                 )}
+
+                {/* 5. VISIBILITY CARD */}
+                {(weather?.visibility !== undefined) && (
+                    <div className="insights-card">
+                        <div className="Fl-icon">
+                            <span className="material-symbols-outlined feels-like-icon">visibility</span>
+                            <h2>Visibility</h2>
+                        </div>
+                        <div className="visibility-container">
+                            <h1 style={{ fontWeight: "500", fontSize: "2.5rem" }}>{weather.visibility / 1000} km</h1>
+                        </div>
+                        <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>{getVisibility(weather.visibility)}</p>
+                    </div>
+                )}
+
+                {/* 6. PRESSURE CARD */}
+                {(weather?.main?.pressure !== undefined) && (
+                    <div className="insights-card">
+                        <div className="Fl-icon">
+                            <span className="material-symbols-outlined feels-like-icon">compress</span>
+                            <h2>Pressure</h2>
+                        </div>
+                        <div className="pressure-container">
+                            <h1 style={{ fontWeight: "500", fontSize: "2.5rem" }}>{weather.main.pressure} hPa</h1>
+                        </div>
+                        <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>{getPressureStatus(weather.main.pressure)}</p>
+                    </div>
+                )}
+
+                {/* 7. UV INDEX CARD */}
+                <div className="insights-card">
+                    <div className="Fl-icon">
+                        <span className="material-symbols-outlined feels-like-icon">wb_sunny</span>
+                        <h2>UV Index</h2>
+                    </div>
+                    <div className="uv-container">
+                        <h1 style={{ fontWeight: "500", fontSize: "2.5rem" }}>{weather?.uv ?? 4}</h1>
+                    </div>
+                    <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>{getUvStatus(weather?.uv ?? 4)}</p>
+                </div>
+
+                {/* 8. AIR QUALITY CARD */}
+                <div className="insights-card">
+                    <div className="Fl-icon">
+                        <span class="material-symbols-outlined">
+                            aq
+                        </span>                       
+                         <h2>Air Quality</h2>
+                    </div>
+                    <div className="aqi-container">
+                        <h1 style={{ fontWeight: "500", fontSize: "2.5rem" }}>{weather?.aqi ?? 2} <span style={{ fontSize: "1.2rem" }}>AQI</span></h1>
+                    </div>
+                    <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>
+                        {weather?.aqi === 1 ? "Good" : weather?.aqi === 2 ? "Fair" : weather?.aqi === 3 ? "Moderate" : "Poor"}
+                    </p>
+                </div>
+
             </div>
         </div>
     )
 }
 
-export default MainInfo 
+export default MainInfo
